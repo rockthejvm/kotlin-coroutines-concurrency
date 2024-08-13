@@ -1,21 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="SbtLocalSettings">
-    <option name="projectSyncType">
-      <map>
-        <entry key="$USER_HOME$/Desktop/akka-quickstart-scala" value="PREVIEW" />
-        <entry key="$USER_HOME$/Desktop/akka-samples-persistence-scala" value="PREVIEW" />
-        <entry key="$USER_HOME$/dev/BigDataAnalyticswithSpark" value="PREVIEW" />
-        <entry key="$USER_HOME$/dev/gh/functional-design" value="PREVIEW" />
-        <entry key="$USER_HOME$/dev/gh/scala-tutorials" value="PREVIEW" />
-        <entry key="$USER_HOME$/dev/learning/Mastering-Akka/chapter01/initial-example-app" value="PREVIEW" />
-        <entry key="$USER_HOME$/dev/learning/Mastering-Akka/chapter03/bookstore-app-complete" value="PREVIEW" />
-        <entry key="$USER_HOME$/dev/learning/Mastering-Akka/chapter04/bookstore-app-complete" value="PREVIEW" />
-        <entry key="$USER_HOME$/dev/learning/Mastering-Akka/chapter05/bookstore-app-complete" value="PREVIEW" />
-      </map>
-    </option>
-  </component>
-  <component name="ScalaSbtSettings">
-    <option name="customVMPath" />
+  <component name="ExternalStorageConfigurationManager" enabled="true" />
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_17" default="true" project-jdk-name="temurin-17" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/out" />
   </component>
 </project>
