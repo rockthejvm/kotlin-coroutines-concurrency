@@ -60,7 +60,7 @@ object StructuredConcurrency {
 
             val htmls = coroutineScope {
                 urls.map { url ->
-                    async { fetchHTML(url) }
+                    async { fetchHTML(url) } // a child of the calling coroutine
                 }.awaitAll()
             }
 
