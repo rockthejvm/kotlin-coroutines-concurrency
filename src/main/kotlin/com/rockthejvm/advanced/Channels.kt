@@ -3,7 +3,6 @@ package com.rockthejvm.advanced
 import kotlinx.coroutines.*
 import kotlinx.coroutines.channels.*
 import org.slf4j.LoggerFactory
-import kotlin.coroutines.coroutineContext
 import kotlin.random.Random
 
 object Channels {
