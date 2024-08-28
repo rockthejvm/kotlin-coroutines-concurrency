@@ -11,9 +11,13 @@ import kotlinx.coroutines.*
         - lambda that runs arbitrary code on the guardian actor (ActorRef)
  */
 object ActorSystem: ActorScope() {
-    suspend fun <T> app(name: String, action: suspend (ActorRef<T>) -> Unit): Unit =
+    suspend fun <T> app(
+        guardianBehavior: Behavior<T>,
+        name: String,
+        action: suspend (ActorRef<T>) -> Unit
+    ): Unit =
         coroutineScope {
-            val guardian = createActor<T>(name, this, CoroutineName(name))
+            val guardian = createActor<T>(guardianBehavior, name, this, CoroutineName(name))
             action(guardian)
         }
 }

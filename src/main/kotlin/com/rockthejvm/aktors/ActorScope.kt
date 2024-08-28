@@ -11,14 +11,15 @@ import kotlin.coroutines.CoroutineContext
  */
 open class ActorScope {
     protected fun <T> createActor(
+        behavior: Behavior<T>,
         name: String,
         scope: CoroutineScope,
         context: CoroutineContext
     ): ActorRef<T> {
         val mailbox = Channel<T>(capacity = Channel.UNLIMITED) // can configure it
         scope.launch(context) {
-            val actor = Actor(name, mailbox)
-            actor.run()
+            val actor = Actor(name, mailbox, coroutineContext.job)
+            actor.run(behavior)
         }
         return ActorRef(mailbox)
     }
