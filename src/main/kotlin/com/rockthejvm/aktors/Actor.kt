@@ -11,25 +11,33 @@ import org.slf4j.LoggerFactory
 internal class Actor<T>(
     private val name: String,
     private val channel: Channel<T>,
-    private val job: Job
+    private val job: Job,
+    private val scope: CoroutineScope
 ) {
     private val log = LoggerFactory.getLogger(this::class.java)
+    private val self = ActorRef(channel)
+    private val ctx = ActorContext(self, name, job, scope)
 
     suspend fun run(startBehavior: Behavior<T>) {
         var behavior = startBehavior
         var newBehavior = behavior
         while(true) {
             when (behavior) {
-                is Behaviors.ReceiveMessage -> {
+                is Behaviors.Receive -> {
                     val msg = channel.receive()
                     val handle = behavior.handler
-                    newBehavior = handle(msg)
+                    newBehavior = handle(ctx, msg)
                     behavior = newBehavior.ifSameThen(behavior)
                 }
 
                 is Behaviors.Setup -> {
-                    newBehavior = behavior.initialization()
+                    newBehavior = behavior.initialization(ctx)
                     behavior = newBehavior.ifSameThen(Behaviors.stopped())
+                }
+
+                is Behaviors.Empty -> {
+                    // nothing happens
+                    delay(1000)
                 }
 
                 is Behaviors.Same ->

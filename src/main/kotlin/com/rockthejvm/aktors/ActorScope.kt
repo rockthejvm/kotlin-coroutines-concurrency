@@ -18,7 +18,7 @@ open class ActorScope {
     ): ActorRef<T> {
         val mailbox = Channel<T>(capacity = Channel.UNLIMITED) // can configure it
         scope.launch(context) {
-            val actor = Actor(name, mailbox, coroutineContext.job)
+            val actor = Actor(name, mailbox, coroutineContext.job, scope)
             actor.run(behavior)
         }
         return ActorRef(mailbox)

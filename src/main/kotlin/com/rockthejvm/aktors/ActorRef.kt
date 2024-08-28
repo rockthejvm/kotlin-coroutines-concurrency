@@ -8,7 +8,7 @@ import kotlinx.coroutines.channels.*
     - a method tell(msg: your type) -> push an element to that channel
     - a method `!`
  */
-class ActorRef<T>(private val mailbox: SendChannel<T>) {
+class ActorRef<T> internal constructor(private val mailbox: SendChannel<T>) {
     suspend fun tell(msg: T) =
         mailbox.send(msg)
 

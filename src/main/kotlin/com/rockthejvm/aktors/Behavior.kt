@@ -7,10 +7,15 @@ sealed interface Behavior<in T> {
 }
 
 object Behaviors {
-    fun <T> receiveMessage(handler: (T) -> Behavior<T>): Behavior<T> =
-        ReceiveMessage(handler)
+    fun <T> receive(handler: suspend (ActorContext<T>, T) -> Behavior<T>): Behavior<T> =
+        Receive(handler)
 
-    fun <T> setup(initialization: () -> Behavior<T>): Behavior<T> =
+    fun <T> receiveMessage(handler: suspend (T) -> Behavior<T>): Behavior<T> =
+        Receive { _, msg ->
+            handler(msg)
+        }
+
+    fun <T> setup(initialization: suspend (ActorContext<T>) -> Behavior<T>): Behavior<T> =
         Setup(initialization)
 
     @Suppress("UNCHECKED_CAST")
@@ -21,8 +26,13 @@ object Behaviors {
     fun <T> stopped(): Behavior<T> =
         Stopped as Behavior<T>
 
-    class ReceiveMessage<T>(val handler: (T) -> Behavior<T>): Behavior<T>
-    class Setup<T>(val initialization: () -> Behavior<T>): Behavior<T>
+    @Suppress("UNCHECKED_CAST")
+    fun <T> empty(): Behavior<T> =
+        Empty as Behavior<T>
+
+    class Receive<T>(val handler: suspend (ActorContext<T>, T) -> Behavior<T>): Behavior<T>
+    class Setup<T>(val initialization: suspend (ActorContext<T>) -> Behavior<T>): Behavior<T>
     data object Same: Behavior<Nothing>
     data object Stopped: Behavior<Nothing>
+    data object Empty: Behavior<Nothing>
 }
