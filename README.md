@@ -1,5 +1,5 @@
 
-## The official repository for the Rock the JVM Advanced Kotlin course
+## The official repository for the Kotlin Coroutines & Concurrency course
 
 Powered by [Rock the JVM!](rockthejvm.com)
 
